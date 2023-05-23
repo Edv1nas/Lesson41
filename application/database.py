@@ -6,6 +6,7 @@ from models import User, Task
 Session = sessionmaker(bind=engine)
 session = Session()
 
+
 class SqlDatabase:
 
     def create_user(self, username: str, password: str) -> None:
@@ -15,9 +16,9 @@ class SqlDatabase:
         print("User added successfully.")
 
     def login_to_app(self, username: str, password: str) -> None:
-        user = session.query(User).filter_by(username=username, password=password).first()
+        user = session.query(User).filter_by(
+            username=username, password=password).first()
         if user:
-            print(f"Welcome, {username}!")
             return user
         else:
             print("Invalid username or password.")
@@ -30,7 +31,8 @@ class SqlDatabase:
         print("Task added successfully.")
 
     def update_task(self, user: str, task_id: int, new_description=None, new_task_done=None) -> None:
-        task = session.query(Task).filter_by(id=task_id, user_id=user.id).first()
+        task = session.query(Task).filter_by(
+            id=task_id, user_id=user.id).first()
         if not task:
             print("Invalid task ID.")
             return
@@ -51,7 +53,8 @@ class SqlDatabase:
                 print(f"{task.id}. {task.description} ({done})")
 
     def delete_task(self, user: str, task_id: int) -> None:
-        task = session.query(Task).filter_by(id=task_id, user_id=user.id).first()
+        task = session.query(Task).filter_by(
+            id=task_id, user_id=user.id).first()
         if not task:
             print("Invalid task ID.")
             return

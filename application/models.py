@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
-from sqlalchemy.orm import sessionmaker, relationship
+from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -14,6 +14,7 @@ class User(Base):
     password = Column("Password", String)
     tasks = relationship('Task', back_populates='user')
 
+
 class Task(Base):
     __tablename__ = 'tasks'
 
@@ -23,5 +24,6 @@ class Task(Base):
     user_id = Column(Integer, ForeignKey('users.id'))
 
     user = relationship("User", back_populates="tasks")
+
 
 Base.metadata.create_all(engine)
